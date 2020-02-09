@@ -4,4 +4,6 @@
     <string name="error_with_audio_source">Sorry, something\'s wrong with the audio source..</string>
     <string name="error_invalid_activity">Invalid Activity</string>
     <string name="move_to_lyric_position">가사 위치로 이동</string>
+    <string name="check_internet_connectivity">인터넷 연결을 확인해 주세요.</string>
+    <string name="please_check_network_connection">please check network connection.. :(</string>
 </resources>

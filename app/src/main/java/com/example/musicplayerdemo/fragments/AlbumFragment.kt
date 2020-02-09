@@ -56,11 +56,11 @@ class AlbumFragment: Fragment() {
 
     private fun getMusicInfo() {
         viewModel.music.observe(this, Observer { music ->
-            setSongInfo(music)
+            setSongInfoView(music)
         })
     }
 
-    private fun setSongInfo(music: Music) {
+    private fun setSongInfoView(music: Music) {
         Glide.with(this).load(music.image).into(this.iv_album_cover)
         this.tv_song_title.text = music.title
         this.tv_singer.text = music.singer

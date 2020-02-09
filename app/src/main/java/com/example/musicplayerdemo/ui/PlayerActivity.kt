@@ -1,8 +1,10 @@
 package com.example.musicplayerdemo.ui
 
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.lifecycle.Observer
@@ -11,6 +13,7 @@ import com.example.musicplayerdemo.fragments.LyricFragment
 import com.example.musicplayerdemo.viewModel.MusicViewModel
 import com.example.musicplayerdemo.R
 import com.example.musicplayerdemo.fragments.AlbumFragment
+import com.example.musicplayerdemo.util.CommonUtils.isNetworkAvailable
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -37,27 +40,24 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
 
-        viewModel = ViewModelProviders.of(this).get(MusicViewModel::class.java)
-
-        getMusicInfo()
-        getSelectedLyricPositionOrGoBack()
-        transactAlbumFragment()
+        if (isNetworkAvailable(this)) {
+            viewModel = ViewModelProviders.of(this).get(MusicViewModel::class.java)
+            getMusicInfo()
+            getSelectedLyricPositionOrGoBack()
+            transactAlbumFragment()
+        } else {
+            showNetworkError()
+        }
     }
 
     override fun onPause() {
         super.onPause()
+        if (Build.VERSION.SDK_INT < 24) releasePlayer()
     }
 
     override fun onStop() {
         super.onStop()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onStart() {
-        super.onStart()
+        if (Build.VERSION.SDK_INT >= 24) releasePlayer()
     }
 
     private fun transactAlbumFragment() {
@@ -118,11 +118,15 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun releasePlayer() {
         player?.let {
-
             it.removeListener(playBackStateListener)
             it.release()
             player = null
         }
+    }
+
+    private fun showNetworkError() {
+        this.constraint_holder_player_activity.visibility = View.GONE
+        this.constraint_network_disconnected.visibility = View.VISIBLE
     }
 
     inner class PlayBackStateListener: Player.EventListener {

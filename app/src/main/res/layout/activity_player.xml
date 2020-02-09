@@ -9,6 +9,25 @@
     tools:context=".ui.PlayerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_network_disconnected"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/music_player">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_network_disconnected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/please_check_network_connection"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_title"
+            android:gravity="center"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_holder_player_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
