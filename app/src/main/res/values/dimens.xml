@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="text_size_title">18sp</dimen>
+    <dimen name="text_size_singer">16sp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="album_size_300">300dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="text_size_lyrics_big">18sp</dimen>
+    <dimen name="text_size_lyrics_small">14sp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+</resources>
