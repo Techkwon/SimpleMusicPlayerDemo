@@ -14,4 +14,4 @@ Exoplayer is used for playing the music.
 
 Interface
 ----------
-Lyrics that matche its time to playing time will appear on the screen, and the users also can check full-screen lyrics by clicking lyrics part where they can click a certain lyric to move its own play time.
+Lyrics that match to its playing time will appear on the screen. And the users also can see lyrics on full screen by clicking lyrics part and there they can click a certain lyric to move its play time.
