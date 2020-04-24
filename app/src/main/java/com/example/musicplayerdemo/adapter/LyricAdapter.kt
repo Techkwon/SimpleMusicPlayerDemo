@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayerdemo.R
 import com.example.musicplayerdemo.data.LyricsInfo
 import com.example.musicplayerdemo.viewModel.MusicViewModel
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.lyrics_item.view.*
 
 class LyricAdapter(
@@ -35,15 +36,20 @@ class LyricAdapter(
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val time = list[position].time
-        val lyric = list[position].text
-        holder.item.text = lyric
+        list[position].let { lyricInfo ->
+            with(holder) {
+                val time = lyricInfo.time
+                val lyric = lyricInfo.text
 
-        if (position == currentPosition) setTextColor(holder.item, colorWhite)
-        else setTextColor(holder.item, colorPreview)
+                tvLyricsItem.text = lyric
 
-        holder.item.setOnClickListener {
-            goToSelectedTime(time)
+                if (position == currentPosition) setTextColor(tvLyricsItem, colorWhite)
+                else setTextColor(tvLyricsItem, colorPreview)
+
+                tvLyricsItem.setOnClickListener {
+                    goToSelectedTime(time)
+                }
+            }
         }
     }
 
@@ -70,7 +76,7 @@ class LyricAdapter(
         isToggleOn = isOn
     }
 
-    inner class ViewHolder(containerView: View): RecyclerView.ViewHolder(containerView) {
-        val item: AppCompatTextView = containerView.tv_lyrics_item
+    inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView), LayoutContainer {
+        val tvLyricsItem: AppCompatTextView = containerView.tv_lyrics_item
     }
 }

@@ -61,6 +61,7 @@ class LyricFragment: Fragment() {
     private fun getMusicInfo() {
         viewModel.music.observe(this, Observer { music ->
             setMusicInfo(music)
+
             viewModel.getLyricInfoList()?.let {
                 adapter?.addList(it.toList()) }
         })

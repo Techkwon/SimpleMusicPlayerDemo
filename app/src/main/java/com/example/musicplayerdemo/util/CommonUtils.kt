@@ -1,9 +1,11 @@
 package com.example.musicplayerdemo.util
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.LruCache
 import com.example.musicplayerdemo.data.LyricsInfo
 import com.example.musicplayerdemo.data.Music
 import com.google.gson.Gson
@@ -21,7 +23,7 @@ object CommonUtils {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val isAvailable: Boolean
 
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // VERSION_CODES.M = API 23
             val network = connectivityManager.activeNetwork
             val capabilities = connectivityManager.getNetworkCapabilities(network)
 
@@ -60,9 +62,8 @@ object CommonUtils {
         } while (line != null)
 
         reader.close()
-        return convertJsonToMusic(
-            str.toString()
-        )
+
+        return convertJsonToMusic(str.toString())
     }
 
     private fun convertJsonToMusic(json: String): Music {
@@ -76,8 +77,9 @@ object CommonUtils {
         for (section in sections) {
             val totalMilliSeconds = getMilliSecondsFromSection(section)
             val text = section.substring(11)
+            val musicInfo = LyricsInfo(totalMilliSeconds, text)
 
-            infoList.add(LyricsInfo(totalMilliSeconds, text))
+            infoList.add(musicInfo)
         }
 
         return infoList
